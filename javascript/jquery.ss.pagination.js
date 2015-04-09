@@ -15,6 +15,7 @@
 			totalItems: null,
 			getParam: null,
 			pjaxHeader: null,
+			postData: null, // HTMLSelector String for element with post data 
 			context: null,
 			indicatorElement: null,
 			transitionMethod: 'replace',
@@ -199,11 +200,9 @@
 			if (this.options.indicatorElement!==null) {
 				this.options.indicatorElement.show();
 			}
-			// Get POST data from the Filter Form
-			var postData = $('#Form_CurrentlyPopularPageFilterForm').serializeArray();
-			
+
 			var url = this._createNewUrl(pageStart);
-			$.ajax({
+			var ajaxOptions = {
 				headers: {"X-Pjax" : this.options.pjaxHeader},
 				url: url,
 				type: 'POST',
@@ -235,7 +234,23 @@
 					// Redirect to failing page so the full error can be shown.
 					document.location.href = url;
 				}
-			});
+			};
+
+
+			// Get POST data from the Filter Form
+			if (this.options.postData!==null) {
+				var postData = $(this.options.postData).serializeArray();
+
+				var postDataOptions = {
+					type: 'POST',
+					data: postData
+				};
+
+				$.extend(ajaxOptions, postDataOptions);
+			}
+
+			// Run the ajax function
+			$.ajax(ajaxOptions);
 		},
 
 		/**
