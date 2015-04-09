@@ -199,11 +199,15 @@
 			if (this.options.indicatorElement!==null) {
 				this.options.indicatorElement.show();
 			}
-
+			// Get POST data from the Filter Form
+			var postData = $('#Form_CurrentlyPopularPageFilterForm').serializeArray();
+			
 			var url = this._createNewUrl(pageStart);
 			$.ajax({
 				headers: {"X-Pjax" : this.options.pjaxHeader},
 				url: url,
+				type: 'POST',
+				data: postData,
 				success: function(data) {
 					if (self._trigger('ontransition', data)!==false) {
 

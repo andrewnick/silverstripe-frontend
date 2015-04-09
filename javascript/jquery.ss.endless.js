@@ -76,6 +76,9 @@
 			}
 
 			this._trigger('afterrefresh');
+		},
+		refresh: function() {
+			this._refresh();
 		}
 
 	});
