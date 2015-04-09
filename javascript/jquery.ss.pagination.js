@@ -205,8 +205,6 @@
 			var ajaxOptions = {
 				headers: {"X-Pjax" : this.options.pjaxHeader},
 				url: url,
-				type: 'POST',
-				data: postData,
 				success: function(data) {
 					if (self._trigger('ontransition', data)!==false) {
 
@@ -245,11 +243,11 @@
 					type: 'POST',
 					data: postData
 				};
-
+				// Add new options
 				$.extend(ajaxOptions, postDataOptions);
 			}
 
-			// Run the ajax function
+			// Send Request
 			$.ajax(ajaxOptions);
 		},
 
